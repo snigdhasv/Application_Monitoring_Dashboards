@@ -1,5 +1,25 @@
 # Application_Monitoring_Dashboards
 
+## Project Directory
+```
+Application_Monitoring_Dashboards/
+├── api_server/
+├    ├── Dockerfile   
+├    ├── main.py
+├    ├── requirements.txt           
+├── docker/
+├    ├── docker-compose.yml
+├── kafka/
+├    ├── nano.6069.save
+├    ├── producer.py
+├    ├── topics.sh
+├── Kafka_consumer/
+├    ├── consumer.py
+├── workload_simulator
+├    ├── simulate_requests.py
+└── README.md                           
+```
+
 ## Creating Database
 In MySQL
 ```mysql
