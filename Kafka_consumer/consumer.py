@@ -8,8 +8,8 @@ import os
 # MYSQL_HOST = os.getenv('MYSQL_HOST', '192.168.0.102')  # MySQL host (use host.docker.internal for Docker on Windows)
 MYSQL_HOST = os.getenv('MYSQL_HOST', '172.24.144.1') 
 MYSQL_PORT = os.getenv('MYSQL_PORT', '3306')  # MySQL port
-MYSQL_USER = os.getenv('MYSQL_USER', 'wsluser')  # MySQL user
-MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD', 'wslpass')  # MySQL password
+MYSQL_USER = os.getenv('MYSQL_USER', 'new_user')  # MySQL user
+MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD', 'angel123')  # MySQL password
 MYSQL_DATABASE = os.getenv('MYSQL_DATABASE', 'logs_db')  # Database to store the data
 
 # Kafka Configuration
@@ -81,6 +81,7 @@ def consume_messages():
     )
     
     print("Kafka Consumer started...")
+    print(f"Broker: {KAFKA_BROKER}, Topic: {KAFKA_TOPIC}")
     
     try:
         for msg in consumer:

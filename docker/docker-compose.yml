@@ -28,7 +28,7 @@ services:
       - "8000:8000"
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:29092
-      MYSQL_HOST: 10.30.203.186  # Replace with your Windows machine's IP
+      MYSQL_HOST: 10.255.255.254 # Windows host IP address
       MYSQL_PORT: 3306
       MYSQL_USER: new_user
       MYSQL_PASSWORD: angel123
@@ -37,8 +37,23 @@ services:
       - kafka
     networks:
       - default
-  
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    depends_on:
+      - api
+      - kafka
+    networks:
+      - default
+
+volumes:
+  grafana-storage:
+
+
 networks:
   default:
-    driver: bridge 
-  
+    driver: bridge

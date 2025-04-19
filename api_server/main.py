@@ -5,6 +5,7 @@ import json
 import logging
 from kafka import KafkaProducer
 from pydantic import BaseModel
+import asyncio
 
 app = FastAPI()
 
@@ -22,8 +23,9 @@ class ProductCreate(BaseModel):
 # --- Kafka Producer Setup ---
 def get_producer():
     try:
+        print("Attempting to create Kafka producer...")
         return KafkaProducer(
-            bootstrap_servers=['kafka:9092', 'localhost:9092'],
+            bootstrap_servers=['kafka:29092', 'localhost:9092'],
             value_serializer=lambda v: json.dumps(v).encode('utf-8'),
             linger_ms=50,  # Wait up to 50ms to batch messages
             batch_size=16384,  # 16KB batch size
@@ -36,7 +38,7 @@ def get_producer():
         return None
 
 # --- Helper Functions ---
-async def send_to_kafka(topic: str, data: dict):
+def send_to_kafka(topic: str, data: dict):
     producer = get_producer()
     if producer:
         try:
@@ -72,7 +74,7 @@ async def health_check():
 @app.get("/status")
 async def get_status():
     log = generate_log("/status", "success")
-    asyncio.create_task(send_to_kafka("api-logs", log))
+    send_to_kafka("api-logs", log)
     return {"status": "running", "uptime": time.time()}
 
 @app.get("/users")
